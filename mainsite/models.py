@@ -57,6 +57,7 @@ class Qa(models.Model):
     status = models.CharField(choices=(('1', '起票'), ('2', '回答完了'), ('3', '確認完了'), ('4', '保留'), ('5', '廃棄')),
                               default='1', max_length=1,
                               verbose_name='ステータス')
+    update_datetime = models.DateTimeField(auto_now=True, verbose_name='更新日時')
 
     def __str__(self):
         return self.title
