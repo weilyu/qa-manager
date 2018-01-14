@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'base.html' %}
+{% load bootstrap %}
+{% block content %}
+
+    <form action="{% url 'login' %}" method="post" role="form">
+        <legend>ログイン</legend>
+        {{ form|bootstrap_horizontal }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+{% endblock %}
