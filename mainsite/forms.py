@@ -34,3 +34,7 @@ class LoginForm(forms.ModelForm):
         help_texts = {
             'username': None
         }
+        labels = {
+            'username': 'ユーザ名',
+            'password': 'パスワード',
+        }
