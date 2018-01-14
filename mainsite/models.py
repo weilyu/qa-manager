@@ -108,3 +108,15 @@ class Comment(models.Model):
             return self.content[:10] + '...'
         else:
             return self.content
+
+
+class SystemUser(models.Model):
+    class Meta:
+        verbose_name_plural = 'システムユーザ'
+
+    system = models.ForeignKey(System, on_delete=models.CASCADE, verbose_name='システム')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='ユーザ')
+    authority = models.CharField(max_length=1, choices=(('1', '管理人'), ('2', '一般ユーザ')), default='2', verbose_name='権限')
+
+    def __str__(self):
+        return self.system.name + '-' + self.user.username
