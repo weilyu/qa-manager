@@ -17,7 +17,7 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                     <li>
-                        <a href="#">個人情報</a>
+                        <a href="#">{{ user.last_name }}　{{ user.first_name }}</a>
                     </li>
                     <li>
                         <a href="#">ログアウト</a>
