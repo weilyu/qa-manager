@@ -5,7 +5,11 @@
     <form action="{% url 'login' %}" method="post" role="form">
         <legend>ログイン</legend>
         {{ form|bootstrap_horizontal }}
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-primary">ログイン</button>
+            </div>
+        </div>
     </form>
 
 {% endblock %}
