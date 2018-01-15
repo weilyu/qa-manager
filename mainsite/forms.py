@@ -38,3 +38,5 @@ class LoginForm(forms.ModelForm):
             'username': 'ユーザ名',
             'password': 'パスワード',
         }
+
+    keep_logged_in = forms.BooleanField(widget=forms.CheckboxInput, label="ログイン情報を保持する")
