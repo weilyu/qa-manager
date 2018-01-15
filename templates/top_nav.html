@@ -17,14 +17,19 @@
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
                     <li>
-                        <a href="#">{{ user.last_name }}　{{ user.first_name }}</a>
+                        <a href="{% url 'profile' %}">{{ user.last_name }}　{{ user.first_name }}</a>
                     </li>
                     <li>
-                        <a href="#">ログアウト</a>
+                        <a href="{% url 'logout' %}">ログアウト</a>
                     </li>
                 {% else %}
                     <li>
-                        <a href="#">登録</a>
+                        {% if 'signup' in request.path %}
+                            <a href="{% url 'login' %}">ログイン</a>
+                        {% else %}
+                            <a href="{% url 'signup' %}">登録</a>
+                        {% endif %}
+
                     </li>
                 {% endif %}
             </ul>

@@ -8,8 +8,8 @@ class System(models.Model):
         verbose_name_plural = 'システム'
 
     name = models.CharField(max_length=50, verbose_name='システム名')
-    start_date = models.DateField(default=datetime.date, verbose_name='開始日')
-    end_date = models.DateField(null=True, verbose_name='終了日')
+    start_date = models.DateField(default=datetime.date.today, verbose_name='開始日')
+    end_date = models.DateField(blank=True, null=True, verbose_name='終了日')
 
     def __str__(self):
         return self.name

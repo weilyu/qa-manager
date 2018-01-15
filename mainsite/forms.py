@@ -24,19 +24,21 @@ class SignUpForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput, label='パスワード確認')
 
 
-class LoginForm(forms.ModelForm):
+class LoginForm(forms.Form):
+    username = forms.CharField(label='ユーザ名', max_length=150)
+    password = forms.CharField(label='パスワード', widget=forms.PasswordInput)
+    keep_logged_in = forms.BooleanField(widget=forms.CheckboxInput, label="ログイン情報を保持する", required=False, initial=False)
+
+
+class ProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'password']
-        widgets = {
-            'password': forms.PasswordInput,
-        }
-        help_texts = {
-            'username': None
-        }
+        fields = ['email', 'last_name', 'first_name']
         labels = {
-            'username': 'ユーザ名',
-            'password': 'パスワード',
+            'email': 'メールアドレス',
+            'last_name': '姓',
+            'first_name': '名'
         }
-
-    keep_logged_in = forms.BooleanField(widget=forms.CheckboxInput, label="ログイン情報を保持する")
+        widgets = {
+            'email': forms.EmailInput,
+        }
