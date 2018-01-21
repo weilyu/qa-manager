@@ -61,5 +61,9 @@ def signup(request):
 
 @login_required(login_url='login')
 def profile(request):
-    # TODO
-    return render(request, 'profile.html', locals())
+    user = request.user
+    form = forms.ProfileForm(request.POST or None, instance=user)
+    if form.is_valid():
+        form.save()
+        messages.add_message(request, messages.SUCCESS, 'ユーザ情報を更新しました。')
+    return render(request, 'profile.html', {'form': form})
