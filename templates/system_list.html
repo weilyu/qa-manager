@@ -56,7 +56,7 @@
                 <th>ID</th>
                 <th>システム名</th>
                 <th>マネジャー</th>
-                <th></th>
+                <th>処理</th>
             </tr>
             </thead>
             <tbody>
@@ -68,7 +68,7 @@
                     <td>
                         {#TODO add quit link#}
                         {% if attend_system.manager != request.user %}
-                            <button class="btn"
+                            <button class="btn btn-danger"
                                     onclick="window.location.href='{% url 'quit_system' attend_system.id %}'">
                                 退出
                             </button>

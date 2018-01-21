@@ -98,6 +98,7 @@ def quit_system(request, system_id):
         messages.add_message(request, messages.ERROR, '管理しているプロジェクトを退出することはできません。')
     else:
         system.users.remove(request.user)
+        messages.add_message(request, messages.INFO, system.name + 'から退出しました。')
     return redirect(to=list_systems)
 
 
