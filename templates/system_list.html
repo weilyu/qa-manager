@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <legend>システム管理
+        <button class="btn">システム登録</button>
+    </legend>
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">システム管理</div>
+        <!-- Table -->
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>システム名</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for own_system in own_systems %}
+                <tr>
+                    <th>{{ own_system.id }}</th>
+                    <td>{{ own_system.name }}</td>
+                    <td>
+                        {#TODO add invitation link#}
+                        <button class="btn">ユーザ招待</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">進行中システム</div>
+        <!-- Table -->
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>システム名</th>
+                <th>マネジャー</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for attend_system in attend_systems %}
+                <tr>
+                    <th>{{ attend_system.id }}</th>
+                    <td>{{ attend_system.name }}</td>
+                    <td>{{ attend_system.manager.last_name }}　{{ attend_system.manager.first_name }}</td>
+                    <td>
+                        {#TODO add quit link#}
+                        <button class="btn">退出</button>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}

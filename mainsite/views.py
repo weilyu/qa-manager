@@ -4,6 +4,7 @@ from django.contrib import auth
 from mainsite import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from .models import System
 
 
 # Create your views here.
@@ -67,3 +68,10 @@ def profile(request):
         form.save()
         messages.add_message(request, messages.SUCCESS, 'ユーザ情報を更新しました。')
     return render(request, 'profile.html', {'form': form})
+
+
+@login_required(login_url='login')
+def list_systems(request):
+    own_systems = System.objects.filter(manager=request.user).filter(end_date=None)
+    attend_systems = request.user.system_set.filter(end_date=None)
+    return render(request, 'system_list.html', locals())
