@@ -76,19 +76,6 @@ class Qa(models.Model):
         return self.title
 
 
-"""
-class File(models.Model):
-    class Meta:
-        verbose_name_plural = 'ファイル'
-
-    qa = models.ForeignKey(Qa, on_delete=models.CASCADE, verbose_name='QA')
-    name = models.CharField(max_length=100, verbose_name='ファイル名')
-
-    def __str__(self):
-        return self.name
-"""
-
-
 class Comment(models.Model):
     class Meta:
         verbose_name_plural = 'コメント'
