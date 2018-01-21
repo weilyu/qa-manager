@@ -60,4 +60,4 @@ class InvitationForm(forms.ModelForm):
 class QaNewForm(forms.ModelForm):
     class Meta:
         model = Qa
-        fields = ['function', 'title', 'detail', 'expect_answer_user', 'expect_answer_date']
+        fields = ['system', 'function', 'title', 'detail', 'expect_answer_user', 'expect_answer_date', 'priority']
