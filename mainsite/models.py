@@ -33,12 +33,13 @@ class Qa(models.Model):
         verbose_name_plural = 'QA'
         ordering = ['-update_datetime']
 
+    system = models.ForeignKey(System, on_delete=models.CASCADE, verbose_name='システム')
     function = models.CharField(max_length=100, null=False, blank=False,
                                 verbose_name='機能')
     priority = models.CharField(choices=(('3', '高'), ('2', '中'), ('1', '低')), max_length=1, verbose_name='優先度')
     sender = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='質問者', related_name='sender')
     send_datetime = models.DateTimeField(auto_now=True, verbose_name='質問日時')
-    expect_answer_date = models.DateField(auto_now=True, verbose_name='回答希望日')
+    expect_answer_date = models.DateField(verbose_name='回答希望日')
     expect_answer_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='回答希望者',
                                            related_name='expect_answer_user')
     title = models.CharField(max_length=50, verbose_name='質問概要', db_index=True)

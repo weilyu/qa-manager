@@ -137,3 +137,15 @@ def system_invite(request, system_id):
         messages.add_message(request, messages.SUCCESS, 'システムのユーザリストを更新しました。')
         return redirect(to=list_systems)
     return render(request, 'system_invite.html', {'form': form})
+
+
+@login_required(login_url='login')
+def new_qa(request):
+    form = forms.QaNewForm(request.POST or None)
+    if form.is_valid():
+        qa = form.save(commit=False)
+        qa.sender = request.user
+        qa.save()
+        messages.add_message(request, messages.SUCCESS, 'QAを発行しました。')
+        redirect(to=summary)
+    return render(request, 'qa_new.html', locals())

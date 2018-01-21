@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from .models import System
+from .models import System, Qa
 
 
 class SignUpForm(forms.ModelForm):
@@ -56,3 +56,8 @@ class InvitationForm(forms.ModelForm):
         model = System
         fields = ['users']
 
+
+class QaNewForm(forms.ModelForm):
+    class Meta:
+        model = Qa
+        fields = ['function', 'title', 'detail', 'expect_answer_user', 'expect_answer_date']
