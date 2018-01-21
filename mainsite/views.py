@@ -73,7 +73,7 @@ def profile(request):
 @login_required(login_url='login')
 def list_systems(request):
     own_systems = System.objects.filter(manager=request.user).filter(end_date=None)
-    attend_systems = request.user.system_set.all()
+    attend_systems = request.user.attendances.all()
     return render(request, 'system_list.html', locals())
 
 
@@ -84,6 +84,7 @@ def new_system(request):
         system = form.save(commit=False)
         system.manager = request.user
         system.save()
+        system.users.add(request.user)
         messages.add_message(request, messages.SUCCESS, 'システムを登録しました。')
         return redirect(to=list_systems)
     return render(request, 'system_new.html', {'form': form})

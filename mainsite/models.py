@@ -10,8 +10,8 @@ class System(models.Model):
     name = models.CharField(max_length=50, verbose_name='システム名')
     start_date = models.DateField(default=datetime.date.today, verbose_name='開始日')
     end_date = models.DateField(blank=True, null=True, verbose_name='終了日')
-    users = models.ManyToManyField(User, 'システムユーザ', null=True)
-    manager = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="マネジャー")
+    users = models.ManyToManyField(User, verbose_name='システムユーザ', related_name='attendances')
+    manager = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="マネジャー", related_name='manager')
 
     def __str__(self):
         return self.name
