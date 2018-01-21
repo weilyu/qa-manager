@@ -59,7 +59,7 @@ class Qa(models.Model):
     expect_answer_date = models.DateField(auto_now=True, verbose_name='回答希望日')
     expect_answer_user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='回答希望者',
                                            related_name='expect_answer_user')
-    title = models.CharField(max_length=50, verbose_name='質問概要')
+    title = models.CharField(max_length=50, verbose_name='質問概要', db_index=True)
     detail = models.TextField(verbose_name='質問詳細')
     respondent = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='回答者', null=True,
                                    related_name='respondent')
@@ -67,8 +67,8 @@ class Qa(models.Model):
     answer_datetime = models.DateTimeField(null=True, verbose_name='回答日時')
     status = models.CharField(choices=(('1', '起票'), ('2', '回答完了'), ('3', '確認完了'), ('4', '保留'), ('5', '廃棄')),
                               default='1', max_length=1,
-                              verbose_name='ステータス')
-    update_datetime = models.DateTimeField(auto_now=True, verbose_name='更新日時')
+                              verbose_name='ステータス', db_index=True)
+    update_datetime = models.DateTimeField(auto_now=True, verbose_name='更新日時', db_index=True)
     tags = models.ManyToManyField(Tag, 'タッグ')
 
     def __str__(self):
