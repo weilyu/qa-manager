@@ -25,7 +25,9 @@
                     <td>
                         <div class="btn-group" role="group" aria-label="...">
                             <div class="btn-group" role="group">
-                                <button class="btn btn-primary">ユーザ招待</button>
+                                <button class="btn btn-primary"
+                                        onclick="window.location.href='{% url 'system_invite' own_system.id %}'">ユーザ招待
+                                </button>
                             </div>
                             <div class="btn-group" role="group">
                                 {% if own_system.end_date is not None %}

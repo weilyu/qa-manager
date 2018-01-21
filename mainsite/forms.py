@@ -49,3 +49,10 @@ class SystemNewForm(forms.ModelForm):
     class Meta:
         model = System
         fields = ['name']
+
+
+class InvitationForm(forms.ModelForm):
+    class Meta:
+        model = System
+        fields = ['users']
+

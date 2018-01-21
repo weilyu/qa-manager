@@ -106,7 +106,7 @@ def quit_system(request, system_id):
 def end_system(request, system_id):
     system = get_object_or_404(System, id=system_id)
     if system.manager != request.user:
-        return Http404
+        raise Http404
     system.end_date = datetime.today()
     system.save()
     messages.add_message(request, messages.INFO, system.name +
@@ -118,9 +118,22 @@ def end_system(request, system_id):
 def reopen_system(request, system_id):
     system = get_object_or_404(System, id=system_id)
     if system.manager != request.user:
-        return Http404
+        raise Http404
     system.end_date = None
     system.save()
     messages.add_message(request, messages.INFO, system.name +
                          'のQA管理を再開しました。')
     return redirect(to=list_systems)
+
+
+@login_required(login_url='login')
+def system_invite(request, system_id):
+    form = forms.InvitationForm(request.POST or None, instance=System.objects.get(id=system_id))
+    if form.is_valid():
+        system = System.objects.get(id=system_id)
+        if system.manager != request.user:
+            raise Http404
+        form.save()
+        messages.add_message(request, messages.SUCCESS, 'システムのユーザリストを更新しました。')
+        return redirect(to=list_systems)
+    return render(request, 'system_invite.html', {'form': form})
