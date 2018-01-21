@@ -108,7 +108,7 @@ def end_system(request, system_id):
         return Http404
     system.end_date = datetime.today()
     system.save()
-    messages.add_message(request, messages.INFO, 'システム：' + system.name +
+    messages.add_message(request, messages.INFO, system.name +
                          'のQA管理を停止しました。')
     return redirect(to=list_systems)
 
@@ -120,6 +120,6 @@ def reopen_system(request, system_id):
         return Http404
     system.end_date = None
     system.save()
-    messages.add_message(request, messages.INFO, 'システム：' + system.name +
+    messages.add_message(request, messages.INFO, system.name +
                          'のQA管理を再開しました。')
     return redirect(to=list_systems)
