@@ -11,29 +11,8 @@ class System(models.Model):
     start_date = models.DateField(default=datetime.date.today, verbose_name='開始日')
     end_date = models.DateField(blank=True, null=True, verbose_name='終了日')
     users = models.ManyToManyField(User, verbose_name='システムユーザ', related_name='attendances')
-    manager = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="マネジャー", related_name='manager')
-
-    def __str__(self):
-        return self.name
-
-
-class SubSystem(models.Model):
-    class Meta:
-        verbose_name_plural = 'サブシステム'
-
-    system = models.ForeignKey(System, on_delete=models.CASCADE, verbose_name='システム')
-    name = models.CharField(max_length=50, verbose_name='サブシステム名')
-
-    def __str__(self):
-        return self.name
-
-
-class Function(models.Model):
-    class Meta:
-        verbose_name_plural = '機能'
-
-    sub_system = models.ForeignKey(SubSystem, on_delete=models.CASCADE, verbose_name='サブシステム')
-    name = models.CharField(max_length=50, verbose_name="機能名")
+    manager = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name="マネジャー",
+                                related_name='manager')
 
     def __str__(self):
         return self.name
@@ -54,7 +33,8 @@ class Qa(models.Model):
         verbose_name_plural = 'QA'
         ordering = ['-update_datetime']
 
-    function = models.ForeignKey(Function, on_delete=models.PROTECT, verbose_name='機能')
+    function = models.CharField(max_length=100, null=False, blank=False,
+                                verbose_name='機能')
     priority = models.CharField(choices=(('3', '高'), ('2', '中'), ('1', '低')), max_length=1, verbose_name='優先度')
     sender = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='質問者', related_name='sender')
     send_datetime = models.DateTimeField(auto_now=True, verbose_name='質問日時')
