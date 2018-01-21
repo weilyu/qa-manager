@@ -38,6 +38,7 @@
             {% include 'side_nav.html' %}
         {% endif %}
         <div class="col-md-9">
+
             {% for message in messages %}
                 <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>

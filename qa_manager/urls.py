@@ -25,5 +25,7 @@ urlpatterns = [
     path('signup', views.signup, name='signup'),
     path('profile', views.profile, name='profile'),
     path('system/list', views.list_systems, name='list_systems'),
+    path('system/new', views.new_system, name='new_system'),
+    path('system/<int:system_id>/quit', views.quit_system, name='quit_system')
 
 ]

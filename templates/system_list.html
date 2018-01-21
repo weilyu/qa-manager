@@ -2,7 +2,7 @@
 
 {% block content %}
     <legend>システム管理
-        <button class="btn">システム登録</button>
+        <button class="bottom" onclick="window.location.href='{% url 'new_system' %}'">システム登録</button>
     </legend>
 
     <div class="panel panel-default">
@@ -53,7 +53,12 @@
                     <td>{{ attend_system.manager.last_name }}　{{ attend_system.manager.first_name }}</td>
                     <td>
                         {#TODO add quit link#}
-                        <button class="btn">退出</button>
+                        {% if attend_system.manager != request.user %}
+                            <button class="btn"
+                                    onclick="window.location.href='{% url 'quit_system' attend_system.id %}'">
+                                退出
+                            </button>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

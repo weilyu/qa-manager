@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from .models import System
 
 
 class SignUpForm(forms.ModelForm):
@@ -42,3 +43,9 @@ class ProfileForm(forms.ModelForm):
         widgets = {
             'email': forms.EmailInput,
         }
+
+
+class SystemNewForm(forms.ModelForm):
+    class Meta:
+        model = System
+        fields = ['name']

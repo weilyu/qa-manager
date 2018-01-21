@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib import auth
 from mainsite import forms
@@ -73,5 +73,27 @@ def profile(request):
 @login_required(login_url='login')
 def list_systems(request):
     own_systems = System.objects.filter(manager=request.user).filter(end_date=None)
-    attend_systems = request.user.system_set.filter(end_date=None)
+    attend_systems = request.user.system_set.all()
     return render(request, 'system_list.html', locals())
+
+
+@login_required(login_url='login')
+def new_system(request):
+    form = forms.SystemNewForm(request.POST or None)
+    if form.is_valid():
+        system = form.save(commit=False)
+        system.manager = request.user
+        system.save()
+        messages.add_message(request, messages.SUCCESS, 'システムを登録しました。')
+        return redirect(to=list_systems)
+    return render(request, 'system_new.html', {'form': form})
+
+
+@login_required(login_url='login')
+def quit_system(request, system_id):
+    system = get_object_or_404(System, id=system_id)
+    if system.manager == request.user:
+        messages.add_message(request, messages.ERROR, '管理しているプロジェクトを退出することはできません。')
+    else:
+        system.users.remove(request.user)
+    return redirect(to=list_systems)
