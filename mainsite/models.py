@@ -51,6 +51,7 @@ class Tag(models.Model):
 class Qa(models.Model):
     class Meta:
         verbose_name_plural = 'QA'
+        ordering = ['-update_datetime']
 
     function = models.ForeignKey(Function, on_delete=models.PROTECT, verbose_name='機能')
     priority = models.CharField(choices=(('3', '高'), ('2', '中'), ('1', '低')), max_length=1, verbose_name='優先度')
