@@ -26,6 +26,7 @@ urlpatterns = [
     path('profile', views.profile, name='profile'),
     path('system/list', views.list_systems, name='list_systems'),
     path('system/new', views.new_system, name='new_system'),
-    path('system/<int:system_id>/quit', views.quit_system, name='quit_system')
+    path('system/<int:system_id>/quit', views.quit_system, name='quit_system'),
+    path('system/<int:system_id>/end', views.end_system, name='end_system'),
 
 ]

@@ -26,6 +26,10 @@
                         {#TODO add invitation link#}
                         <button class="btn">ユーザ招待</button>
                     </td>
+                    <td>
+                        <button class="btn" onclick="window.location.href='{% url 'end_system' own_system.id %}'">停止
+                        </button>
+                    </td>
                 </tr>
             {% endfor %}
             </tbody>

@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, Http404
 from django.contrib.auth.models import User
 from django.contrib import auth
 from mainsite import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import System
+from datetime import datetime
 
 
 # Create your views here.
@@ -97,4 +98,16 @@ def quit_system(request, system_id):
         messages.add_message(request, messages.ERROR, '管理しているプロジェクトを退出することはできません。')
     else:
         system.users.remove(request.user)
+    return redirect(to=list_systems)
+
+
+@login_required(login_url='login')
+def end_system(request, system_id):
+    system = get_object_or_404(System, id=system_id)
+    if system.manager != request.user:
+        return Http404
+    system.end_date = datetime.today()
+    system.save()
+    messages.add_message(request, messages.INFO, 'システム：' + system.name +
+                         'のQA管理を停止しました。')
     return redirect(to=list_systems)
