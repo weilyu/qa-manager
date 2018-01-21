@@ -14,7 +14,7 @@
             <tr>
                 <th>ID</th>
                 <th>システム名</th>
-                <th></th>
+                <th>処理</th>
             </tr>
             </thead>
             <tbody>
@@ -23,18 +23,22 @@
                     <th>{{ own_system.id }}</th>
                     <td>{{ own_system.name }}</td>
                     <td>
-                        {#TODO add invitation link#}
-                        <button class="btn">ユーザ招待</button>
-                    </td>
-                    <td>
-                        {% if own_system.end_date is None %}
-                            <button class="btn" onclick="window.location.href='{% url 'end_system' own_system.id %}'">停止
-                            </button>
-                        {% else %}
-                            <button class="btn"
-                                    onclick="window.location.href='{% url 'reopen_system' own_system.id %}'">再開
-                            </button>
-                        {% endif %}
+                        <div class="btn-group" role="group" aria-label="...">
+                            <div class="btn-group" role="group">
+                                <button class="btn btn-primary">ユーザ招待</button>
+                            </div>
+                            <div class="btn-group" role="group">
+                                {% if own_system.end_date is not None %}
+                                    <button class="btn btn-success"
+                                            onclick="window.location.href='{% url 'reopen_system' own_system.id %}'">再開
+                                    </button>
+                                {% else %}
+                                    <button class="btn btn-danger"
+                                            onclick="window.location.href='{% url 'end_system' own_system.id %}'">停止
+                                    </button>
+                                {% endif %}
+                            </div>
+                        </div>
                     </td>
                 </tr>
             {% endfor %}
