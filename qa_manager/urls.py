@@ -28,5 +28,6 @@ urlpatterns = [
     path('system/new', views.new_system, name='new_system'),
     path('system/<int:system_id>/quit', views.quit_system, name='quit_system'),
     path('system/<int:system_id>/end', views.end_system, name='end_system'),
+    path('system/<int:system_id>/reopen', views.reopen_system, name='reopen_system'),
 
 ]

@@ -27,8 +27,14 @@
                         <button class="btn">ユーザ招待</button>
                     </td>
                     <td>
-                        <button class="btn" onclick="window.location.href='{% url 'end_system' own_system.id %}'">停止
-                        </button>
+                        {% if own_system.end_date is None %}
+                            <button class="btn" onclick="window.location.href='{% url 'end_system' own_system.id %}'">停止
+                            </button>
+                        {% else %}
+                            <button class="btn"
+                                    onclick="window.location.href='{% url 'reopen_system' own_system.id %}'">再開
+                            </button>
+                        {% endif %}
                     </td>
                 </tr>
             {% endfor %}

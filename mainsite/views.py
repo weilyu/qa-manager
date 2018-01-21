@@ -73,7 +73,7 @@ def profile(request):
 
 @login_required(login_url='login')
 def list_systems(request):
-    own_systems = System.objects.filter(manager=request.user).filter(end_date=None)
+    own_systems = System.objects.filter(manager=request.user).order_by('end_date')
     attend_systems = request.user.attendances.all().filter(end_date=None)
     return render(request, 'system_list.html', locals())
 
@@ -110,4 +110,16 @@ def end_system(request, system_id):
     system.save()
     messages.add_message(request, messages.INFO, 'システム：' + system.name +
                          'のQA管理を停止しました。')
+    return redirect(to=list_systems)
+
+
+@login_required(login_url='login')
+def reopen_system(request, system_id):
+    system = get_object_or_404(System, id=system_id)
+    if system.manager != request.user:
+        return Http404
+    system.end_date = None
+    system.save()
+    messages.add_message(request, messages.INFO, 'システム：' + system.name +
+                         'のQA管理を再開しました。')
     return redirect(to=list_systems)
