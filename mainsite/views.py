@@ -74,7 +74,7 @@ def profile(request):
 @login_required(login_url='login')
 def list_systems(request):
     own_systems = System.objects.filter(manager=request.user).filter(end_date=None)
-    attend_systems = request.user.attendances.all()
+    attend_systems = request.user.attendances.all().filter(end_date=None)
     return render(request, 'system_list.html', locals())
 
 
