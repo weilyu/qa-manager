@@ -10,6 +10,7 @@ class System(models.Model):
     name = models.CharField(max_length=50, verbose_name='システム名')
     start_date = models.DateField(default=datetime.date.today, verbose_name='開始日')
     end_date = models.DateField(blank=True, null=True, verbose_name='終了日')
+    users = models.ManyToManyField(User, 'システムユーザ')
 
     def __str__(self):
         return self.name
@@ -37,6 +38,16 @@ class Function(models.Model):
         return self.name
 
 
+class Tag(models.Model):
+    class Meta:
+        verbose_name_plural = 'タグ'
+
+    name = models.CharField(max_length=50, verbose_name='タグ名')
+
+    def __str__(self):
+        return self.name
+
+
 class Qa(models.Model):
     class Meta:
         verbose_name_plural = 'QA'
@@ -58,30 +69,10 @@ class Qa(models.Model):
                               default='1', max_length=1,
                               verbose_name='ステータス')
     update_datetime = models.DateTimeField(auto_now=True, verbose_name='更新日時')
+    tags = models.ManyToManyField(Tag, 'タッグ')
 
     def __str__(self):
         return self.title
-
-
-class Tag(models.Model):
-    class Meta:
-        verbose_name_plural = 'タグ'
-
-    name = models.CharField(max_length=50, verbose_name='タグ名')
-
-    def __str__(self):
-        return self.name
-
-
-class QaTag(models.Model):
-    class Meta:
-        verbose_name_plural = 'QAタグ'
-
-    qa = models.ForeignKey(Qa, on_delete=models.CASCADE, verbose_name='QA')
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, verbose_name='タグ')
-
-    def __str__(self):
-        return self.qa.title + '-' + self.tag.name
 
 
 """
@@ -111,15 +102,3 @@ class Comment(models.Model):
             return self.content[:10] + '...'
         else:
             return self.content
-
-
-class SystemUser(models.Model):
-    class Meta:
-        verbose_name_plural = 'システムユーザ'
-
-    system = models.ForeignKey(System, on_delete=models.CASCADE, verbose_name='システム')
-    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='ユーザ')
-    authority = models.CharField(max_length=1, choices=(('1', '管理人'), ('2', '一般ユーザ')), default='2', verbose_name='権限')
-
-    def __str__(self):
-        return self.system.name + '-' + self.user.username
