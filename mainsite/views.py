@@ -4,7 +4,7 @@ from django.contrib import auth
 from mainsite import forms
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import System
+from .models import System, Qa
 from datetime import datetime
 
 
@@ -149,3 +149,10 @@ def new_qa(request):
         messages.add_message(request, messages.SUCCESS, 'QAを発行しました。')
         redirect(to=summary)
     return render(request, 'qa_new.html', locals())
+
+
+@login_required(login_url='login')
+def list_qa(request):
+    attend_systems = request.user.attendances.all().filter(end_date=None)
+    qas = Qa.objects.filter(system__in=attend_systems)
+    return render(request, 'qa_list.html', {'qas': qas})

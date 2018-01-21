@@ -30,6 +30,7 @@ urlpatterns = [
     path('system/<int:system_id>/end', views.end_system, name='end_system'),
     path('system/<int:system_id>/reopen', views.reopen_system, name='reopen_system'),
     path('system/<int:system_id>invite', views.system_invite, name='system_invite'),
-    path('qa/new', views.new_qa, name='new_qa')
+    path('qa/new', views.new_qa, name='new_qa'),
+    path('qa/list', views.list_qa, name='list_qa'),
 
 ]

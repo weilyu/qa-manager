@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <legend>QA一覧</legend>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>機能</th>
+            <th>質問者</th>
+            <th>概要</th>
+            <td>希望回答者</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for qa in qas %}
+            <tr>
+                <th>{{ qa.id }}</th>
+                <td>{{ qa.function }}</td>
+                <td>{{ qa.sender }}</td>
+                <td>{{ qa.title }}</td>
+                <td>{{ qa.expect_answer_user }}</td>
+            </tr>
+        {% endfor %}
+
+
+        </tbody>
+    </table>
+
+{% endblock %}
